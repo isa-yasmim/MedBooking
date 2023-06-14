@@ -86,7 +86,7 @@ namespace MedBooking.Models
 
                 entity.Property(e => e.id_user).HasColumnName("id_user");
 
-                entity.Property(e => e.username).HasColumnName("username");
+                entity.Property(e => e._username).HasColumnName("username");
 
                 entity.Property(e => e.senha).HasColumnName("senha");
             });

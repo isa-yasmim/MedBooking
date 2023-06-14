@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static System.Net.Mime.MediaTypeNames;
 using System.Runtime.InteropServices;
+using MedBooking.UI;
 
 namespace MedBooking
 {
@@ -105,7 +106,7 @@ namespace MedBooking
             {
                 MessageBox.Show("Insira uma senha");
             }
-            else if (context.User.Any(u => u.username == username))//validar se ja tem um usuario com o mesmo username, para evitar conflitos no banco
+            else if (context.User.Any(u => u._username == username))//validar se ja tem um usuario com o mesmo username, para evitar conflitos no banco
             {
                 MessageBox.Show("Nome de usuário já existe");
                 userCriado = false;
@@ -115,7 +116,7 @@ namespace MedBooking
 
                 var newUser = new User
                 {
-                    username = username,
+                    _username = username,
                     senha = senha
                 };
 
@@ -130,7 +131,7 @@ namespace MedBooking
 
             //precisa do id_user para criar a conta
             var id_user = context.User
-                .Where(u => u.username == username && u.senha == senha)
+                .Where(u => u._username == username && u.senha == senha)
                 .Select(u => u.id_user)
                 .FirstOrDefault();
 
@@ -140,10 +141,12 @@ namespace MedBooking
                 if (nome == "")
                 {
                     MessageBox.Show("Insira um nome");
+                    return;
                 }
                 else if (telefone == "")
                 {
                     MessageBox.Show("Insira um telefone");
+                    return;
                 }
                 if (tipo == "medico")
                 {
@@ -156,11 +159,12 @@ namespace MedBooking
                 if (tipo_conta == 0)
                 {
                     MessageBox.Show("Insira um tipo de conta");
+                    return;
                 }
                 //especialidade e null, somente preencher para medicos
                 else
                 {
-                    var newConta = new Conta
+                    var newConta = new Conta()
                     {
                         nome = nome,
 
@@ -270,8 +274,23 @@ namespace MedBooking
         {
             var context = new MBcontext();
 
-            //validando a variavel
             int id_conta = 0;
+
+            id_conta = int.Parse(DeleteId.Text);
+
+            //get info from tb_conta e colocar em uma variavel so conta
+            var conta = context.Conta
+                .FirstOrDefault(c => c.id_conta == id_conta);
+            if (conta == null)
+            {
+                MessageBox.Show("ID não encontrado");
+                return;
+            }
+            else
+            {
+                UpdateUser updateUser = new UpdateUser(conta);
+                updateUser.Show();
+            }
         }
     }
 }

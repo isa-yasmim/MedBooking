@@ -12,8 +12,14 @@ namespace MedBooking.Models
         [Key]
         public int id_user { get; set; }
 
-        public string username { get; set; }
+        private string username { get; set; }
 
         public string senha { get; set; }
+
+        public string _username
+        {
+            get { return username; }
+            set { username = value; }
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace MedBooking
             string username = textBox1.Text;
             string senha = textBox2.Text;
 
-            var result = context.User.FirstOrDefault(u => u.username == username && u.senha == senha);
+            var result = context.User.FirstOrDefault(u => u._username == username && u.senha == senha);
 
             //autenticar login
             if (result != null)
