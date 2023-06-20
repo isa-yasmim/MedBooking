@@ -26,5 +26,20 @@ namespace MedBooking
 
             return slot;
         }
+
+        public string horaSlot(int key)
+        {
+            Dictionary<int, string> slotTimes = Utils.getSlot();
+
+            if (slotTimes.ContainsKey(key))
+            {
+                return slotTimes[key];
+            }
+            else
+            {
+                return "00:00"; // Default value when the key is not found
+            }
+        }
+
     }
 }

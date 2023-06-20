@@ -197,6 +197,17 @@ namespace MedBooking
                 .Where(c => c._id_consulta == id_consulta)
                 .FirstOrDefault();
 
+            if(consulta.status == "Cancelada")
+            {
+                MessageBox.Show("Consulta ja esta cancelada");
+                return;
+            }
+            if(consulta.status == "Realizada")
+            {
+                MessageBox.Show("Consulta ja foi realizada");
+                return;
+            }
+
             consulta.status = "Cancelada";
 
             context.Update(consulta);
@@ -211,6 +222,7 @@ namespace MedBooking
         private void Detalhes_Click(object sender, EventArgs e)
         {
             var context = new MBcontext();
+            Utils utils = new Utils();
 
             if(dataGridView2.SelectedRows.Count == 0)
             {
@@ -235,7 +247,7 @@ namespace MedBooking
             string telefone = consultaMedico[0].telefone;
             string data = consultaSlot[0].Data_consulta.ToString("dd/MM/yyyy");
             int key = int.Parse(consultaSlot[0].Hora_consulta);
-            string hora = horaSlot(key);
+            string hora = utils.horaSlot(key);
 
             string mensagem = $"Nome do Medico : {nome}\n" + 
                 $"Especialidade : {especialidade}\n" + 
@@ -246,19 +258,7 @@ namespace MedBooking
             MessageBox.Show(mensagem);
         }
 
-        private string horaSlot(int key)
-        {
-            Dictionary<int, string> slotTimes = Utils.getSlot();
-
-            if (slotTimes.ContainsKey(key))
-            {
-                return slotTimes[key];
-            }
-            else
-            {
-                return "00:00"; // Default value when the key is not found
-            }
-        }
+        
 
 
     }
