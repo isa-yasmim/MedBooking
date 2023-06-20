@@ -12,9 +12,14 @@ namespace MedBooking
 {
     public partial class DoctorMenu : Form
     {
-        public DoctorMenu()
+        public DoctorMenu(int _id_conta)
         {
             InitializeComponent();
+        }
+
+        private void DoctorMenu_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

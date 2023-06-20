@@ -101,15 +101,18 @@ namespace MedBooking
             if (username == "")
             {
                 MessageBox.Show("Insira um nome de usuário");
+                return;
             }
             else if (senha == "")
             {
                 MessageBox.Show("Insira uma senha");
+                return;
             }
             else if (context.User.Any(u => u._username == username))//validar se ja tem um usuario com o mesmo username, para evitar conflitos no banco
             {
                 MessageBox.Show("Nome de usuário já existe");
                 userCriado = false;
+                return;
             }
             else
             {
@@ -117,7 +120,7 @@ namespace MedBooking
                 var newUser = new User
                 {
                     _username = username,
-                    senha = senha
+                    _senha = senha
                 };
 
                 context.User.Add(newUser);
@@ -131,8 +134,8 @@ namespace MedBooking
 
             //precisa do id_user para criar a conta
             var id_user = context.User
-                .Where(u => u._username == username && u.senha == senha)
-                .Select(u => u.id_user)
+                .Where(u => u._username == username && u._senha == senha)
+                .Select(u => u._id_user)
                 .FirstOrDefault();
 
             if (userCriado == true)
@@ -169,7 +172,7 @@ namespace MedBooking
                         nome = nome,
 
                         telefone = telefone,
-                        id_user = id_user,
+                        _id_user = id_user,
                         tipo_conta = tipo_conta,
                         especialidade = especialidade
                     };
@@ -239,7 +242,7 @@ namespace MedBooking
                 {
                     //achar o id do user
                     var user = context.User
-                        .Where(u => u.id_user == conta.id_user)
+                        .Where(u => u._id_user == conta._id_user)
                         .FirstOrDefault();
 
                     //remover
@@ -278,9 +281,11 @@ namespace MedBooking
 
             id_conta = int.Parse(DeleteId.Text);
 
-            //get info from tb_conta e colocar em uma variavel so conta
+            //get info from tb_conta e colocar na classe conta
+            //nao precisa fazer um de cada vez
             var conta = context.Conta
                 .FirstOrDefault(c => c.id_conta == id_conta);
+
             if (conta == null)
             {
                 MessageBox.Show("ID não encontrado");

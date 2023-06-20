@@ -22,6 +22,7 @@ namespace MedBooking.UI
 
         private void UpdateUser_Load(object sender, EventArgs e)
         {
+            //mostra a conta que está sendo atualizada, recebe esse valor do form AdminMenu
             label2.Text = "Nome: " + _conta.nome + "\nTipo_conta:" + _conta.tipo_conta + "\nTelefone:" + _conta.telefone + "\nEspecialidade:" +
                 _conta.especialidade;
         }
@@ -30,10 +31,13 @@ namespace MedBooking.UI
         {
             var context = new MBcontext();
 
+            //pode atualizar nome e telefone somente
+            //ambos podem ser atualizados ou somente um deles
             if (nomeU.Text == "")
             {
                 if (TelefoneU.Text == "")
                 {
+                    //se nenhum campo for preenchido nao atualiza
                     MessageBox.Show("Preencha um dos campos");
                     return;
                 }

@@ -24,6 +24,8 @@ namespace MedBooking.Models
         
         public virtual DbSet<User> User { get; set; }
 
+        public virtual DbSet<Slot> Slot { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=laptop-80e5h12k\\sqlexpress;Initial Catalog=MedBooking;Integrated Security=True");
@@ -32,22 +34,22 @@ namespace MedBooking.Models
         {
             modelBuilder.Entity<Consulta>(entity =>
             {
-                entity.HasKey(e => e.id_consulta);
+                entity.HasKey(e => e._id_consulta);
 
                 entity.ToTable("tb_consulta");
 
-                entity.HasIndex(e => e.id_paciente)
+                entity.HasIndex(e => e._id_paciente)
                     .HasName("id_paciente");
-                entity.HasIndex(e => e.id_medico)
+                entity.HasIndex(e => e._id_medico)
                     .HasName("id_medico");
                 entity.HasIndex(e => e.id_slot)
                     .HasName("id_slot");
 
-                entity.Property(e => e.id_consulta).HasColumnName("id_consulta");
+                entity.Property(e => e._id_consulta).HasColumnName("id_consulta");
 
-                entity.Property(e => e.id_paciente).HasColumnName("id_paciente");
+                entity.Property(e => e._id_paciente).HasColumnName("id_paciente");
 
-                entity.Property(e => e.id_medico).HasColumnName("id_medico");
+                entity.Property(e => e._id_medico).HasColumnName("id_medico");
 
                 entity.Property(e => e.id_slot).HasColumnName("id_slot");
 
@@ -62,12 +64,12 @@ namespace MedBooking.Models
 
                 entity.ToTable("tb_conta");
 
-                entity.HasIndex(e => e.id_user)
+                entity.HasIndex(e => e._id_user)
                     .HasName("id_user");
 
                 entity.Property(e => e.id_conta).HasColumnName("id_conta");
 
-                entity.Property(e => e.id_user).HasColumnName("id_user");
+                entity.Property(e => e._id_user).HasColumnName("id_user");
 
                 entity.Property(e => e.tipo_conta).HasColumnName("tipo_conta");
 
@@ -80,26 +82,28 @@ namespace MedBooking.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasKey(e => e.id_user);
+                entity.HasKey(e => e._id_user);
 
                 entity.ToTable("tb_user");
 
-                entity.Property(e => e.id_user).HasColumnName("id_user");
+                entity.Property(e => e._id_user).HasColumnName("id_user");
 
                 entity.Property(e => e._username).HasColumnName("username");
 
-                entity.Property(e => e.senha).HasColumnName("senha");
+                entity.Property(e => e._senha).HasColumnName("senha");
             });
 
             modelBuilder.Entity<Slot>(entity =>
             {
-                entity.HasKey(e => e.id_slot);
+                entity.HasKey(e => e._id_slot);
 
                 entity.ToTable("tb_slot");
 
-                entity.Property(e => e.id_slot).HasColumnName("id_slot");
+                entity.Property(e => e._id_slot).HasColumnName("id_slot");
 
-                entity.Property(e => e.data_hora_consulta).HasColumnName("data_hora_consulta");
+                entity.Property(e => e.Data_consulta).HasColumnName("data_consulta");
+
+                entity.Property(e => e.Hora_consulta).HasColumnName("hora_consulta");
             }); 
         }       
     }

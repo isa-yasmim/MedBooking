@@ -39,7 +39,7 @@ namespace MedBooking
             string username = textBox1.Text;
             string senha = textBox2.Text;
 
-            var result = context.User.FirstOrDefault(u => u._username == username && u.senha == senha);
+            var result = context.User.FirstOrDefault(u => u._username == username && u._senha == senha);
 
             //autenticar login
             if (result != null)
@@ -55,9 +55,15 @@ namespace MedBooking
                     Show();
                 }
 
+                //tipo da conta
                 var conta_tipo = context.Conta
-                    .Where(c => c.id_user == result.id_user)
+                    .Where(c => c._id_user == result._id_user)
                     .Select(c => c.tipo_conta)
+                    .FirstOrDefault();
+                //id conta
+                var _id_conta = context.Conta
+                    .Where(c => c._id_user == result._id_user)
+                    .Select(c => c.id_conta)
                     .FirstOrDefault();
 
                 if (conta_tipo == 1) // tipo_conta = 1 -> doctor
@@ -65,7 +71,7 @@ namespace MedBooking
                     // iniciar painel do medico
                     MessageBox.Show("Bem vindo medico");
                     Hide();
-                    DoctorMenu doctorMenu = new DoctorMenu();
+                    DoctorMenu doctorMenu = new DoctorMenu(_id_conta);
                     doctorMenu.ShowDialog();
                     Show();
                 }
@@ -74,7 +80,7 @@ namespace MedBooking
                     // iniciar painel do paciente
                     MessageBox.Show("Bem vindo paciente");
                     Hide();
-                    PacienteMenu pacienteMenu = new PacienteMenu();
+                    PacienteMenu pacienteMenu = new PacienteMenu(_id_conta);
                     pacienteMenu.ShowDialog();
                     Show();
                 }
