@@ -168,6 +168,9 @@ namespace MedBooking
             dataGridView2.DataSource = consulta;
 
             dataGridView2.Columns["_id_consulta"].Visible = false;
+            dataGridView2.Columns["_id_paciente"].Visible = false;
+            dataGridView2.Columns["_id_medico"].Visible = false;
+            dataGridView2.Columns["id_slot"].Visible = false;
         }
 
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -175,9 +178,88 @@ namespace MedBooking
         //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         private void Desmarcar(object sender, EventArgs e)
         {
+            var context = new MBcontext();
 
+            int id_consulta = 0;
+
+            if(dataGridView2.SelectedRows.Count > 0)
+            {
+                var objeto = dataGridView2.SelectedRows[0].DataBoundItem as Consulta;
+                id_consulta = objeto._id_consulta;
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma consulta");
+                return;
+            }
+
+            var consulta = context.Consulta
+                .Where(c => c._id_consulta == id_consulta)
+                .FirstOrDefault();
+
+            consulta.status = "Cancelada";
+
+            context.Update(consulta);
+            context.SaveChanges();
+
+            MessageBox.Show("Consulta desmarcada com sucesso");
         }
 
-        
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        //Detalhes da consulta | GET
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        private void Detalhes_Click(object sender, EventArgs e)
+        {
+            var context = new MBcontext();
+
+            if(dataGridView2.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecione uma consulta");
+                return;
+            }
+
+            var objeto = dataGridView2.SelectedRows[0].DataBoundItem as Consulta;
+
+            var consultaMedico = context.Conta
+                .Where(c => c.id_conta == objeto._id_medico)
+                .Select(c => new { c.nome, c.especialidade, c.telefone })
+                .ToList();
+
+            var consultaSlot = context.Slot
+                .Where(s => s._id_slot == objeto.id_slot)
+                .Select(s => new { s.Data_consulta, s.Hora_consulta })
+                .ToList();
+
+            string nome = consultaMedico[0].nome;
+            string especialidade = consultaMedico[0].especialidade;
+            string telefone = consultaMedico[0].telefone;
+            string data = consultaSlot[0].Data_consulta.ToString("dd/MM/yyyy");
+            int key = int.Parse(consultaSlot[0].Hora_consulta);
+            string hora = horaSlot(key);
+
+            string mensagem = $"Nome do Medico : {nome}\n" + 
+                $"Especialidade : {especialidade}\n" + 
+                $"Telefone para contato : {telefone}\n\n" + 
+                $"Data : {data}\n" + 
+                $"Hora : {hora}";
+
+            MessageBox.Show(mensagem);
+        }
+
+        private string horaSlot(int key)
+        {
+            Dictionary<int, string> slotTimes = Utils.getSlot();
+
+            if (slotTimes.ContainsKey(key))
+            {
+                return slotTimes[key];
+            }
+            else
+            {
+                return "00:00"; // Default value when the key is not found
+            }
+        }
+
+
     }
 }

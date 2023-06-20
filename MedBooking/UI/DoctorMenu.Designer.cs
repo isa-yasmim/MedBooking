@@ -32,7 +32,10 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Realizar = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Detalhes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,21 +75,56 @@
             this.textBox1.Size = new System.Drawing.Size(132, 22);
             this.textBox1.TabIndex = 3;
             // 
-            // button1
+            // Realizar
             // 
-            this.button1.Location = new System.Drawing.Point(16, 404);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(139, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Realizar consulta";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Realizar.Location = new System.Drawing.Point(16, 404);
+            this.Realizar.Name = "Realizar";
+            this.Realizar.Size = new System.Drawing.Size(139, 23);
+            this.Realizar.TabIndex = 4;
+            this.Realizar.Text = "Realizar consulta";
+            this.Realizar.UseVisualStyleBackColor = true;
+            this.Realizar.Click += new System.EventHandler(this.Realizar_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Marcada",
+            "Cancelada",
+            "Realizada"});
+            this.comboBox1.Location = new System.Drawing.Point(300, 46);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(170, 24);
+            this.comboBox1.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(244, 46);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 16);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Status :";
+            // 
+            // Detalhes
+            // 
+            this.Detalhes.Location = new System.Drawing.Point(172, 404);
+            this.Detalhes.Name = "Detalhes";
+            this.Detalhes.Size = new System.Drawing.Size(161, 23);
+            this.Detalhes.TabIndex = 7;
+            this.Detalhes.Text = "Detalhes da consulta";
+            this.Detalhes.UseVisualStyleBackColor = true;
+            this.Detalhes.Click += new System.EventHandler(this.Detalhes_Click);
             // 
             // DoctorMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Detalhes);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.Realizar);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dataGridView1);
@@ -106,6 +144,9 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Realizar;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button Detalhes;
     }
 }

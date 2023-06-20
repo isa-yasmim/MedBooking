@@ -43,6 +43,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Detalhes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -157,7 +158,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(573, 397);
+            this.button1.Location = new System.Drawing.Point(504, 394);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(209, 23);
             this.button1.TabIndex = 13;
@@ -188,11 +189,22 @@
             this.comboBox1.TabIndex = 15;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // Detalhes
+            // 
+            this.Detalhes.Location = new System.Drawing.Point(738, 394);
+            this.Detalhes.Name = "Detalhes";
+            this.Detalhes.Size = new System.Drawing.Size(125, 24);
+            this.Detalhes.TabIndex = 16;
+            this.Detalhes.Text = "Detalhes";
+            this.Detalhes.UseVisualStyleBackColor = true;
+            this.Detalhes.Click += new System.EventHandler(this.Detalhes_Click);
+            // 
             // PacienteMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 450);
+            this.Controls.Add(this.Detalhes);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
@@ -235,5 +247,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button Detalhes;
     }
 }

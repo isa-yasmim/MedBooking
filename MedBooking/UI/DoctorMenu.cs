@@ -21,5 +21,21 @@ namespace MedBooking
         {
 
         }
+
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        //Adicionar notas e marcar como realizada | UPDATE
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        private void Realizar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        //Deatlhes da consulta | GET
+        //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        private void Detalhes_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
